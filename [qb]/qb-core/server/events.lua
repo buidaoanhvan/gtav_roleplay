@@ -11,8 +11,7 @@ AddEventHandler('playerDropped', function(reason)
     local src = source
     if not QBCore.Players[src] then return end
     local Player = QBCore.Players[src]
-    TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Dropped', 'red',
-        '**' .. GetPlayerName(src) .. '** (' .. Player.PlayerData.license .. ') left..' .. '\n **Reason:** ' .. reason)
+    TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Dropped', 'red', '**' .. GetPlayerName(src) .. '** (' .. Player.PlayerData.license .. ') left..' ..'\n **Reason:** ' .. reason)
     Player.Functions.Save()
     QBCore.Player_Buckets[Player.PlayerData.license] = nil
     QBCore.Players[src] = nil
@@ -36,15 +35,14 @@ local function onPlayerConnecting(name, _, deferrals)
     end
 
     for _, v in pairs(identifiers) do
-        if string.find(v, 'fivem') then
+        if string.find(v, 'license') then
             license = v
             break
         end
     end
 
     if GetConvarInt("sv_fxdkMode", false) then
-        -- license = 'fivem:AAAAAAAAAAAAAAAA' -- Dummy License
-        license = 'fivem:AAAAAA' -- Dummy License
+        license = 'license:AAAAAAAAAAAAAAAA' -- Dummy License
     end
 
     if not license then
@@ -85,7 +83,7 @@ local function onPlayerConnecting(name, _, deferrals)
     databasePromise:next(function()
         deferrals.update(string.format(Lang:t('info.join_server'), name))
         deferrals.done()
-    end, function(databaseError)
+    end, function (databaseError)
         deferrals.done(Lang:t('error.connecting_database_error'))
         print('^1' .. databaseError)
     end)
@@ -181,7 +179,7 @@ RegisterNetEvent('QBCore:ToggleDuty', function()
         Player.Functions.SetJobDuty(true)
         TriggerClientEvent('QBCore:Notify', src, Lang:t('info.on_duty'))
     end
-
+        
     TriggerEvent('QBCore:Server:SetDuty', src, Player.PlayerData.job.onduty)
     TriggerClientEvent('QBCore:Client:SetDuty', src, Player.PlayerData.job.onduty)
 end)
@@ -189,7 +187,7 @@ end)
 -- BaseEvents
 
 -- Vehicles
-RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName)
+RegisterServerEvent('baseevents:enteringVehicle', function(veh,seat,modelName)
     local src = source
     local data = {
         vehicle = veh,
@@ -200,7 +198,7 @@ RegisterServerEvent('baseevents:enteringVehicle', function(veh, seat, modelName)
     TriggerClientEvent('QBCore:Client:VehicleInfo', src, data)
 end)
 
-RegisterServerEvent('baseevents:enteredVehicle', function(veh, seat, modelName)
+RegisterServerEvent('baseevents:enteredVehicle', function(veh,seat,modelName)
     local src = source
     local data = {
         vehicle = veh,
@@ -216,7 +214,7 @@ RegisterServerEvent('baseevents:enteringAborted', function()
     TriggerClientEvent('QBCore:Client:AbortVehicleEntering', src)
 end)
 
-RegisterServerEvent('baseevents:leftVehicle', function(veh, seat, modelName)
+RegisterServerEvent('baseevents:leftVehicle', function(veh,seat,modelName)
     local src = source
     local data = {
         vehicle = veh,
@@ -231,26 +229,20 @@ end)
 
 -- This event is exploitable and should not be used. It has been deprecated, and will be removed soon.
 RegisterNetEvent('QBCore:Server:UseItem', function(item)
-    print(string.format(
-        "%s triggered QBCore:Server:UseItem by ID %s with the following data. This event is deprecated due to exploitation, and will be removed soon. Check qb-inventory for the right use on this event.",
-        GetInvokingResource(), source))
+    print(string.format("%s triggered QBCore:Server:UseItem by ID %s with the following data. This event is deprecated due to exploitation, and will be removed soon. Check qb-inventory for the right use on this event.", GetInvokingResource(), source))
     QBCore.Debug(item)
 end)
 
 -- This event is exploitable and should not be used. It has been deprecated, and will be removed soon. function(itemName, amount, slot)
 RegisterNetEvent('QBCore:Server:RemoveItem', function(itemName, amount)
     local src = source
-    print(string.format(
-        "%s triggered QBCore:Server:RemoveItem by ID %s for %s %s. This event is deprecated due to exploitation, and will be removed soon. Adjust your events accordingly to do this server side with player functions.",
-        GetInvokingResource(), src, amount, itemName))
+    print(string.format("%s triggered QBCore:Server:RemoveItem by ID %s for %s %s. This event is deprecated due to exploitation, and will be removed soon. Adjust your events accordingly to do this server side with player functions.", GetInvokingResource(), src, amount, itemName))
 end)
 
 -- This event is exploitable and should not be used. It has been deprecated, and will be removed soon. function(itemName, amount, slot, info)
 RegisterNetEvent('QBCore:Server:AddItem', function(itemName, amount)
     local src = source
-    print(string.format(
-        "%s triggered QBCore:Server:AddItem by ID %s for %s %s. This event is deprecated due to exploitation, and will be removed soon. Adjust your events accordingly to do this server side with player functions.",
-        GetInvokingResource(), src, amount, itemName))
+    print(string.format("%s triggered QBCore:Server:AddItem by ID %s for %s %s. This event is deprecated due to exploitation, and will be removed soon. Adjust your events accordingly to do this server side with player functions.", GetInvokingResource(), src, amount, itemName))
 end)
 
 -- Non-Chat Command Calling (ex: qb-adminmenu)
@@ -260,7 +252,7 @@ RegisterNetEvent('QBCore:CallCommand', function(command, args)
     if not QBCore.Commands.List[command] then return end
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
-    local hasPerm = QBCore.Functions.HasPermission(src, "command." .. QBCore.Commands.List[command].name)
+    local hasPerm = QBCore.Functions.HasPermission(src, "command."..QBCore.Commands.List[command].name)
     if hasPerm then
         if QBCore.Commands.List[command].argsrequired and #QBCore.Commands.List[command].arguments ~= 0 and not args[#QBCore.Commands.List[command].arguments] then
             TriggerClientEvent('QBCore:Notify', src, Lang:t('error.missing_args2'), 'error')
