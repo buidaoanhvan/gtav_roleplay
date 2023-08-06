@@ -72,12 +72,13 @@ Config.Discord = {
     }
 }
 
+-- cấu hình NPC
 Config.Density = {
-    ['parked'] = 0.8,
-    ['vehicle'] = 0.8,
-    ['multiplier'] = 0.8,
-    ['peds'] = 0.8,
-    ['scenario'] = 0.8,
+    ['parked'] = 0.01,
+    ['vehicle'] = 0.01,
+    ['multiplier'] = 0.01,
+    ['peds'] = 0.01,
+    ['scenario'] = 0.01,
 }
 
 Config.Stun = {
