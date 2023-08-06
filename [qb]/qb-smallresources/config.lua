@@ -74,11 +74,11 @@ Config.Discord = {
 
 -- cấu hình NPC
 Config.Density = {
-    ['parked'] = 0.01,
-    ['vehicle'] = 0.01,
-    ['multiplier'] = 0.01,
-    ['peds'] = 0.01,
-    ['scenario'] = 0.01,
+    ['parked'] = 0,
+    ['vehicle'] = 0,
+    ['multiplier'] = 0,
+    ['peds'] = 0,
+    ['scenario'] = 0,
 }
 
 Config.Stun = {
@@ -89,14 +89,14 @@ Config.Stun = {
 
 Config.RemovePistolWhipping = true  -- Removes Pistol Whipping
 
-Config.Cruise = 'mp/h'
+Config.Cruise = 'km/h'
 Config.IdleCamera = true
 Config.disableHandsupControls = {24, 25, 47, 58, 59, 63, 64, 71, 72, 75, 140, 141, 142, 143, 257, 263, 264}
 Config.DisableAmbience = false -- Disabled distance sirens, distance car alarms, etc
 Config.HarnessUses = 20
 Config.DamageNeeded = 100.0 -- vehiclepush 0-1000
 Config.EnableProne = false -- prone isnt recomended at this time
-Config.MapText = "Server Name" -- This is the name / text shown above the map
+Config.MapText = "Saigonese" -- This is the name / text shown above the map
 
 Config.Disable = {
     disableHudComponents = {1, 2, 3, 4, 7, 9, 13, 14, 19, 20, 21, 22}, -- Hud Components: https://docs.fivem.net/natives/?_0x6806C51AD12B83B8
